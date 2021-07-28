@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>在Vue中注册组件</title>
+    </head>
+    <body>
+    <div id="todoItem">
+        <todo></todo>
+    </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/JavaScript"></script>
+    <script>
+
+// 局部注册组件
+var todoItem = Vue.extend({
+
+    props:['todoData'],
+    // data: function () {
+    //     return {
+    //         todoData: [
+    //             { id: 0, text: '蔬菜' },
+    //             { id: 1, text: '奶酪' },
+    //             { id: 2, text: '其它什么人吃的东西' }
+    //         ]
+    //     }
+    // },
+    template: `
+        <ul>
+            <li v-for='(d, i) in todoData' :key="i">
+                {{ d.text }}
+            </li>
+        </ul>
+  `
+});
+
+// 请注意，在实例化extends组件构造器时，传入属性必须是propsData、而不是props哦
+new todoItem({
+    propsData: {
+        todoData: [
+            { id: 3, text: '蔬菜2' },
+            { id: 4, text: '奶酪2' },
+            { id: 5, text: '随便其它什么人吃的东西3' }
+        ]
+    }
+}).$mount('#todoItem')
+
+// // 注册到全局
+// Vue.component('todo', todoItem)
+//
+// new Vue({
+//     el: '#todoItem',
+//     data: {
+//         groceryList: [
+//             { id: 0, text: '蔬菜' },
+//             { id: 1, text: '奶酪' },
+//             { id: 2, text: '随便其它什么人吃的东西' }
+//         ]
+//     }
+// })
+
+</script>
+</html>
